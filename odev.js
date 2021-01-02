@@ -34,3 +34,50 @@ document.querySelector("#reset").addEventListener("click", () => {
 /* START CODING HERE */
 
 
+document.querySelector("#populationBigger").addEventListener("click", () => {
+  const biggerThan500k = data.filter(deger => deger.population > 500000);
+  createTableElements(biggerThan500k,"allcities");
+});
+
+document.querySelector("#landAreaLess").addEventListener("click", () => {
+  const lessThan1000 = data.filter(deger => deger.landArea < 1000);
+  createTableElements(lessThan1000,"allcities");
+});
+
+document.querySelector("#isPopulationLess").addEventListener("click", () => {
+  const isAnyLess = data.some(deger => deger.population < 100000);
+  alert(isAnyLess);
+});
+document.querySelector("#isLandBigger").addEventListener("click", () => {
+  const isEveryBig = data.every(deger => deger.landArea > 100);
+  alert(isEveryBig);
+});
+
+
+//----------------
+
+const cityForm = document.querySelector("#inputGroupSelect01");
+for (let i = 0; i <= cityForm.length; i++) {
+  let defaultOptions = document.querySelector("option[value]")
+  cityForm.removeChild(defaultOptions)
+}
+
+
+//options added
+
+data.forEach((deger,index,dizi) => {
+
+let selecting = document.createElement("option");
+let addCity = document.createTextNode(dizi[index].name);
+selecting.appendChild(addCity);
+
+cityForm.appendChild(selecting);
+
+}); 
+
+//------------------
+
+cityForm.addEventListener("change", (e) => {
+  let selectedCity = data.filter(element => e.target.value === element.name)
+  createTableElements(selectedCity, "singlecity")
+})
